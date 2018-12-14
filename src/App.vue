@@ -7,7 +7,7 @@
         <a-sky ref="sky"
              id="image-360"
              radius="10"
-             src="https://i.imgur.com/wEe1WvE.png"></a-sky>
+             src="../static/images/sky.png"></a-sky>
         </a-sky>
     </a-scene>
 </template>
@@ -17,9 +17,9 @@ export default {
     data() {
         console.log('in data');
         return {
-            desc: "it's a sphere",
+            desc: "sphere",
             custompos: "1 2 3",
-            imgurl: "https://i.imgur.com/wEe1WvE.png"
+            imgurl: "../static/images/sky.png"
         }
     },
 }
