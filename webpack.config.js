@@ -1,10 +1,12 @@
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const ConfigWebpackPlugin = require("config-webpack");
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    filename: 'build.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, './dist'),
+    filename: 'build.js'
   },
   module: {
     // Special compilation rules
@@ -56,5 +58,9 @@ module.exports = {
             ],
         },
     ]
-  }
+  },
+  plugins: [
+    new VueLoaderPlugin(),
+    new ConfigWebpackPlugin()
+    ]
 };
