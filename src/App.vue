@@ -1,9 +1,12 @@
 <template>
     <a-scene>
-        <a-sphere v-on:click="clickTest" position="-2 1 1" src="../static/images/sky.png"></a-sphere>
-        <a-sphere v-bind:position="randpos" v-bind:src = "imgurl"></a-sphere>
-        <a-sphere v-on:click="getRandPos" v-bind:position="custompos">{{desc}}</a-sphere>
-        <!-- Sky id="Sky" -->
+        <a-sphere v-on:click="clickTest" position="-2 1 1" src="../static/images/ball2.png"></a-sphere>
+        <a-sphere v-bind:position="randpos" v-bind:src = "ballsrc"></a-sphere>
+        <a-sphere color="#141edc" v-on:click="getRandPos" v-bind:position="custompos">{{desc}}</a-sphere>
+
+        <!-- custom tower obj -->
+        <tower></tower>
+
         <a-sky ref="sky"
              id="image-360"
              radius="10"
@@ -16,13 +19,18 @@
 </template>
 
 <script>
+import tower from './components/tower.vue'
+
 export default {
+    components: {
+        tower
+    },
     data() {
         console.log('in data');
         return {
             desc: "sphere",
             custompos: "1 2 3",
-            imgurl: "../static/images/sky.png"
+            ballsrc: "../static/images/ball.png"
         }
     },
     computed: {
@@ -30,7 +38,6 @@ export default {
             return [1, this.getRandomInt(-2,6), 1].join(' ');
         }
     },
-
     methods: {
         clickTest: function (event) {
             console.log("Clicked!");

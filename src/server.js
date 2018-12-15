@@ -7,7 +7,6 @@ server.get('/', (req, res) => res.send('Hello World!'))
 
 Promise.resolve().then(async function() {
     console.log('In server.js promise resolve!');
-    // serve static files
     // server.use(express.static('static'));
     // server.use(express.static('static/images'));
     server.use('/static', express.static('static'));
