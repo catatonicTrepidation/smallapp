@@ -1,6 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const ConfigWebpackPlugin = require("config-webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
@@ -61,6 +62,11 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new ConfigWebpackPlugin()
+    new ConfigWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      title: 'smallapp',
+      // Load a custom template (lodash by default see the FAQ for details)
+      template: './src/index.html'
+    }),
     ]
 };
