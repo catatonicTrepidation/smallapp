@@ -3,7 +3,7 @@ const server = express();
 const port = 3000
 
 console.log('server.js!');
-server.get('/', (req, res) => res.send('Hello World!'))
+// server.get('/', (req, res) => res.send('Hello World!'))
 
 Promise.resolve().then(async function() {
     console.log('In server.js promise resolve!');
