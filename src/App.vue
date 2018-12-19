@@ -5,62 +5,11 @@
       adapter: easyrtc;
         ">
 
-        <a-assets>
-           <!-- Templates -->
-
-
-            <!-- vvv BROKEN vvv -->
-
-            <!-- Avatar -->
-            <!-- <template id="avatar-template">
-            <a-entity class="avatar">
-                <a-sphere class="head"
-                color="#309FF0"
-                scale="0.45 0.5 0.4"
-                ></a-sphere>
-                <a-entity class="face"
-                position="0 0.05 0"
-                >
-                <a-sphere class="eye"
-                    color="#efefef"
-                    position="0.16 0.1 -0.35"
-                    scale="0.12 0.12 0.12"
-                >
-                    <a-sphere class="pupil"
-                    color="#000"
-                    position="0 0 -1"
-                    scale="0.2 0.2 0.2"
-                    ></a-sphere>
-                </a-sphere>
-                <a-sphere class="eye2"
-                    color="#efefef"
-                    position="-0.16 0.1 -0.35"
-                    scale="0.12 0.12 0.12"
-                >
-                    <a-sphere class="pupil"
-                    color="#000"
-                    position="0 0 -1"
-                    scale="0.2 0.2 0.2"
-                    ></a-sphere>
-                </a-sphere>
-                </a-entity>
-            </a-entity>
-            </template> -->
-
-            <!-- ^^^ BROKEN ^^^ -->
+        <a-assets class="aframe-assets">
 
             <a-sky id="sky" src="../static/images/sky.png"></a-sky>
 
         </a-assets>
-
-        
-        <!-- vvv BROKEN vvv -->
-
-        <!-- Avatar -->
-        <!-- <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera="userHeight: 1.6" wasd-controls look-controls>
-        </a-entity> -->
-
-        <!-- ^^^ BROKEN ^^^ -->
 
         <a-sphere v-on:click="clickTest" position="-3 -1 1" src="../static/images/ball2.png"></a-sphere>
         <a-sphere v-bind:position="randpos" v-bind:src = "ballsrc"></a-sphere>
@@ -84,22 +33,9 @@ import easyrtc from '../static/easyrtc/easyrtc.js';
 import socketIO from 'socket.io-client';
 
 
-    // vvv BROKEN vvv
-
-    // Define custom schema for syncing avatar color, set by random-color
-    // NAF.schemas.add({
-    // template: '#avatar-template',
-    // components: [
-    //     'position',
-    //     'rotation'
-    // ]
-    // });
-
-    // ^^^ BROKEN ^^^
-
-
-
 import tower from './components/tower.vue'
+
+import randaframe from '../static/aframe-randomizer-components.min.js'
 
 export default {
     components: {
@@ -148,6 +84,97 @@ export default {
         document.getElementsByTagName('a-scene')[0].appendChild(frag);
     },
 
+    createAvatarTemplate() {
+                var frag = this.fragmentFromString(`
+            <!-- Avatar -->
+            <template id="avatar-template" v-pre>
+                <a-entity class="avatar">
+                    <a-sphere class="head"
+                    color="#309FF0"
+                    scale="0.45 0.5 0.4"
+                    ></a-sphere>
+                    <a-entity class="face"
+                    position="0 0.05 0"
+                    >
+                    <a-sphere class="eye"
+                        color="#efefef"
+                        position="0.16 0.1 -0.35"
+                        scale="0.12 0.12 0.12"
+                    >
+                        <a-sphere class="pupil"
+                        color="#000"
+                        position="0 0 -1"
+                        scale="0.2 0.2 0.2"
+                        ></a-sphere>
+                    </a-sphere>
+                    <a-sphere class="eye2"
+                        color="#efefef"
+                        position="-0.16 0.1 -0.35"
+                        scale="0.12 0.12 0.12"
+                    >
+                        <a-sphere class="pupil"
+                        color="#000"
+                        position="0 0 -1"
+                        scale="0.2 0.2 0.2"
+                        ></a-sphere>
+                    </a-sphere>
+                    </a-entity>
+                </a-entity>
+            </template>
+        `);
+        document.getElementsByClassName('aframe-assets')[0].appendChild(frag);
+    },
+
+    addAvatarSchema() {
+        //Define custom schema for syncing avatar color, set by random-color
+        NAF.schemas.add({
+            template: '#avatar-template',
+            components: [
+            'position',
+            'rotation',
+            {
+                selector: '.head',
+                component: 'material',
+                property: 'color'
+            },
+            {
+                selector: '.eye',
+                component: 'material',
+                property: 'color'
+            },
+            {
+                selector: '.eye2',
+                component: 'material',
+                property: 'color'
+            }
+            ]
+        });
+    },
+
+    createNetworkedPlayer() {
+        var frag = this.fragmentFromString(`
+        <!-- Player -->
+        <a-entity id="player" networked="template:#avatar-template;attachTemplateToLocal:false;" camera="userHeight: 1.6" wasd-controls look-controls>
+            <a-sphere class="head"
+            visible="false"
+            random-color
+            >
+            <a-sphere class="eye"
+            visible="false"
+            random-color
+            >
+            <a-sphere class="eye2"
+            visible="false"
+            random-color
+            >
+            </a-sphere>
+            </a-sphere>
+        </a-entity>
+        `);
+        document.getElementsByTagName('a-scene')[0].appendChild(frag);
+    },
+
+
     fragmentFromString(strHTML) {
             return document.createRange().createContextualFragment(strHTML);
       }
@@ -155,7 +182,9 @@ export default {
 
     mounted () {
         this.addFloatingOrbs(); // this probably doesn't need to be called from here, but i kinda just wanted to test it, i guess
-        
+        this.createAvatarTemplate();
+        this.addAvatarSchema();
+        this.createNetworkedPlayer();
     }
     
 }

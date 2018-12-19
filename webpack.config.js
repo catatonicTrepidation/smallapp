@@ -45,7 +45,7 @@ module.exports = {
         loader: 'vue-loader',
         exclude: /(node_modules|bower_components)/,
       },
-    // images
+      // images
         {
             test: /\.(png|svg|jpg|gif)$/,
             use: [
@@ -58,6 +58,14 @@ module.exports = {
             },
             ],
         },
+      // easyrtc
+      {
+        test: require.resolve('./static/easyrtc/easyrtc.js'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'easyrtc'
+        }]
+      }
     ]
   },
   plugins: [

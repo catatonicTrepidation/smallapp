@@ -12,6 +12,11 @@
   "license": "ISC",
   "devDependencies": {
     "aframe": "^0.7.1",
+    "aframe-animation-component": "^5.1.2",
+    "aframe-extras": "^5.0.0",
+    "aframe-gui": "^0.2.1",
+    "aframe-layout-component": "^5.3.0",
+    "aframe-src-fit-component": "^0.1.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
@@ -31,6 +36,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "easyrtc": "^1.1.0",
+    "expose-loader": "^0.7.5",
     "express": "^4.16.4",
     "file-loader": "^1.1.4",
     "html-webpack-plugin": "^3.2.0",
@@ -44,7 +50,8 @@
     "vue-loader": "^15.4.2",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.9.1"
+    "webpack-dev-server": "^2.9.1",
+    "webrtc-adapter": "^7.1.1"
   },
   "dependencies": {}
 }

@@ -1,8 +1,8 @@
 import 'aframe';
-// import 'aframe-layout-component';
+import 'aframe-layout-component';
 import 'networked-aframe';
-// import 'aframe-animation-component';
-// import 'aframe-src-fit-component';
+import 'aframe-animation-component';
+import 'aframe-src-fit-component';
 // import 'aframe-asset-on-demand-component';
 // import 'aframe-input-mapping-component';
 // import 'aframe-teleport-controls';
